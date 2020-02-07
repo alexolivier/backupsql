@@ -1,9 +1,9 @@
 #!/bin/bash
 #Edit cronjob file
-sed -i "s/MySQLIP/${MySQLIP}/" /config/cronjob
-sed -i "s/SQL_userid/${SQL_userid}/" /config/cronjob
+sed -i "s/SQL_host/${SQL_host}/" /config/cronjob
+sed -i "s/SQL_user/${SQL_user}/" /config/cronjob
 sed -i "s/SQL_pwd/${SQL_pwd}/" /config/cronjob
-sed -i "s/TOKEN/${TOKEN}/" /config/cronjob
+sed -i "s/SQL_port/${SQL_port}/" /config/cronjob
 sed -i "s/BACKUPCOPIES/${BackupCopies}/" /config/cronjob
 
 #Edit crontab.txt file

@@ -1,34 +1,6 @@
 #!/bin/bash
 DATE=$(date)
-mysqldump -uSQL_userid -pSQL_pwd -hMySQLIP --all-databases | gzip > /backup/MyDatabase_$(date +%Y-%m-%d).sql.gz
-
-#http://scratching.psybermonkey.net/2011/01/bash-how-to-check-exit-status-of-pipe.html
-if [ ${PIPESTATUS[0]} -ne "0" ];
-then
-    #echo "the command \"mysqldump\" failed with Error: ${PIPESTATUS[0]}";
-    #exit 1;
-   curl -s -k -X POST --header "Authorization: Bearer TOKEN" \
-   --header  'Content-Type: application/json' \
-   -d "{\"type\": \"note\", \"title\": \"MySQL Backup failed with error: ${PIPESTATUS[0]}\", \"body\": \"$DATE\"}" \
-   https://api.pushbullet.com/v2/pushes;
-   exit 1;   
-else
-   curl -s -k -X POST --header "Authorization: Bearer TOKEN" \
-   --header  'Content-Type: application/json' \
-   -d "{\"type\": \"note\", \"title\": \"MySQL Backup complete\", \"body\": \"$DATE\"}" \
-   https://api.pushbullet.com/v2/pushes;
-fi
-
+mysqldump -uSQL_user -pSQL_pwd -hSQL_host -PSQL_port --all-databases | gzip > /backup/$(date +%Y-%m-%d).sql.gz
 
 ##Delete files "My*" older than BACKUPCOPIES days
-find /backup/My* -mtime +BACKUPCOPIES -exec rm {} \;
-
-   
-#restore databases   
-# gunzip < MyDatabase_DATE.sql.gz | mysql -uxbmc -h 192.168.0.40
-
-
-#https://github.com/dockerfile/mariadb/issues/3
-#TERM env variable
-
-
+find /backup/* -mtime +BACKUPCOPIES -exec rm {} \;
