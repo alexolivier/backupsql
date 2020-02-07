@@ -1,6 +1,6 @@
 #!/bin/bash
 DATE=$(date)
-mysqldump -uSQL_user -pSQL_pwd -hSQL_host -PSQL_port --all-databases –-lock-tables=0 | gzip > /backup/$(date +%Y-%m-%d).sql.gz
+mysqldump -uSQL_user -pSQL_pwd -hSQL_host -PSQL_port --all-databases --lock-tables=0 | gzip > /backup/$(date +%Y-%m-%d).sql.gz
 
 ##Delete files "My*" older than BACKUPCOPIES days
 find /backup/* -mtime +BACKUPCOPIES -exec rm {} \;
