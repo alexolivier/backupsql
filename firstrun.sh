@@ -16,6 +16,6 @@ sed -i "s/DAYW/${bkpDayOfWeek}/" /config/crontab.txt
 export TERM=dumb
 
 crontab /config/crontab.txt
-
+/config/cronjob
 
 
